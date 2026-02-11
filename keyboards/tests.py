@@ -3,7 +3,8 @@ from aiogram.types import InlineKeyboardMarkup
 
 def tests() -> InlineKeyboardMarkup:
     return create_inline_kb(
-        2,
+        1,
+        'test_2',
         'test_4'
     )
 
