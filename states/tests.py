@@ -8,3 +8,7 @@ class Test2(StatesGroup):
 
 class Tests(StatesGroup):
     test = State()
+
+class Biling_Test(StatesGroup):
+    biling_test = State()
+

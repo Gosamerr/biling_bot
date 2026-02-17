@@ -5,6 +5,7 @@ from aiogram.types import Message
 from lexicon.lexcion_ru import LEXICON
 from keyboards.main import main_menu
 from keyboards.tests import tests
+from keyboards.biling_test import biling_menu
 from keyboards.results import results_menu
 from aiogram.types import CallbackQuery
 from aiogram import F
@@ -30,6 +31,10 @@ async def process_menu(callback: CallbackQuery):
         await callback.answer()
     elif callback.data == "results":
         keyboards = results_menu()
+        await callback.message.answer(text=LEXICON[callback.data + '_answer'], reply_markup=keyboards)
+        await callback.answer()
+    elif callback.data == "train_biling":
+        keyboards = biling_menu()
         await callback.message.answer(text=LEXICON[callback.data + '_answer'], reply_markup=keyboards)
         await callback.answer()
 

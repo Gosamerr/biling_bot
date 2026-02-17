@@ -6,6 +6,7 @@ from config.config import Config, load_config
 from handlers.main import main_router
 from handlers.test import test_router
 from handlers.results import results_router
+from handlers.biling_test import biling_router
 
 async def main() -> None:
 
@@ -21,6 +22,7 @@ async def main() -> None:
     dp = Dispatcher()
 
     dp.include_router(main_router)
+    dp.include_router(biling_router)
     dp.include_router(test_router)
     dp.include_router(results_router)
 
