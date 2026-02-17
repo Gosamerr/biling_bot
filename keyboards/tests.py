@@ -4,8 +4,7 @@ from aiogram.types import InlineKeyboardMarkup
 def tests() -> InlineKeyboardMarkup:
     return create_inline_kb(
         1,
-        'test_2',
-        'test_4'
+        'test_2', 'test_4'
     )
 
 def start_test() -> InlineKeyboardMarkup:

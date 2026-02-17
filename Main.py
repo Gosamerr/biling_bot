@@ -5,6 +5,7 @@ from aiogram import Bot, Dispatcher
 from config.config import Config, load_config
 from handlers.main import main_router
 from handlers.test import test_router
+from handlers.results import results_router
 
 async def main() -> None:
 
@@ -21,6 +22,7 @@ async def main() -> None:
 
     dp.include_router(main_router)
     dp.include_router(test_router)
+    dp.include_router(results_router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
     await bot.delete_webhook(drop_pending_updates=True)
