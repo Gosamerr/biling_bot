@@ -1,5 +1,13 @@
 import random
 import requests
+from pathlib import Path
+
+_WORDS_FILE = Path(__file__).resolve().parent.parent / "russian.txt"
+try:
+    with _WORDS_FILE.open("r", encoding="utf-8") as ru:
+        RUSSIAN_WORDS = {w.strip().lower() for w in ru if w.strip()}
+except FileNotFoundError:
+    RUSSIAN_WORDS = set()
 
 def random_character() -> tuple[str, str]:
     
@@ -9,19 +17,8 @@ def random_character() -> tuple[str, str]:
 
 def get_correct_words(string_of_words: tuple[str, ...], character: str) -> int:
 
-    response = requests.get('https://raw.githubusercontent.com/danakt/russian-words/master/russian.txt')
+    ch = character.lower()
 
-    text = response.content.decode('cp1251')
+    user_words = {w.lower() for w in string_of_words if w and w[0].lower() == ch}
 
-    with open('russian.txt', 'wb') as ru:
-        ru.write(text.encode('utf-8'))
-
-    with open('russian.txt', 'r', encoding='utf-8') as ru:
-        words = ru.read().splitlines()
-
-    correct_words = []
-    for word in words:
-        if word.lower().startswith(character.lower()) and word.lower() in [w.lower() for w in string_of_words]:
-            correct_words.append(word)
-
-    return len(correct_words)
+    return len(user_words & RUSSIAN_WORDS)
