@@ -12,3 +12,16 @@ def start_test() -> InlineKeyboardMarkup:
         1,
         'start_test'
     )
+
+def test2_to_main() -> InlineKeyboardMarkup:
+    return create_inline_kb(
+        1,
+        'test_2', 'main_menu'
+    )
+
+def test4_to_main() -> InlineKeyboardMarkup:
+    return create_inline_kb(
+        1,
+        'test_4', 'main_menu'
+    )
+

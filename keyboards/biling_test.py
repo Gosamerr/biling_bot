@@ -25,3 +25,9 @@ def answer_buttons(correct_answer: str, wrong_answers: list[str]) -> InlineKeybo
     
     kb_builder.adjust(1) 
     return kb_builder.as_markup()
+
+def biling_to_main() -> InlineKeyboardMarkup:
+    return create_inline_kb(
+        1,
+        'train_biling', 'main_menu'
+    )

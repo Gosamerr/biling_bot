@@ -15,27 +15,27 @@ main_router = Router()
 @main_router.message(CommandStart())
 async def process_start_command(message: Message):
     keyboards = main_menu()
-    await message.answer(text=LEXICON['/start'], reply_markup=keyboards)
+    await message.answer(text=LEXICON['/start'], reply_markup=keyboards, parse_mode="HTML")
 
 @main_router.callback_query(F.data == "main_menu")
 async def process_start_callback(callback: CallbackQuery):
     keyboards = main_menu()
-    await callback.message.answer(text=LEXICON['/start'], reply_markup=keyboards)
+    await callback.message.answer(text=LEXICON['/start'], reply_markup=keyboards, parse_mode="HTML")
     await callback.answer()
 
 @main_router.callback_query(F.data.in_({"tests", "train_biling", "results"}))
 async def process_menu(callback: CallbackQuery):
     if callback.data == "tests":
         keyboards = tests()
-        await callback.message.answer(LEXICON[callback.data + '_answer'], reply_markup=keyboards)
+        await callback.message.answer(LEXICON[callback.data + '_answer'], reply_markup=keyboards, parse_mode="HTML")
         await callback.answer()
     elif callback.data == "results":
         keyboards = results_menu()
-        await callback.message.answer(text=LEXICON[callback.data + '_answer'], reply_markup=keyboards)
+        await callback.message.answer(text=LEXICON[callback.data + '_answer'], reply_markup=keyboards, parse_mode="HTML")
         await callback.answer()
     elif callback.data == "train_biling":
         keyboards = biling_menu()
-        await callback.message.answer(text=LEXICON[callback.data + '_answer'], reply_markup=keyboards)
+        await callback.message.answer(text=LEXICON[callback.data + '_answer'], reply_markup=keyboards, parse_mode="HTML")
         await callback.answer()
 
 

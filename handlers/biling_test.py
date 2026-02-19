@@ -8,7 +8,8 @@ from aiogram import F
 from aiogram.fsm.context import FSMContext
 from states.tests import Biling_Test
 from services.biling_test import BilingTest
-from keyboards.biling_test import answer_buttons
+from services.session_logger import log_biling_session
+from keyboards.biling_test import answer_buttons, biling_to_main
 
 biling_router = Router()
 
@@ -87,11 +88,23 @@ async def process_test_answer(callback: CallbackQuery, state: FSMContext):
         )
     else:
         # Тест завершён
+        keyboard = biling_to_main()
         score = f"{correct_answers} из {len(question_set)}"
+
+        # Логируем результат в текстовый файл session.txt
+        log_biling_session(
+            tg_id=callback.from_user.id,
+            language_pair=data["language_pair"],
+            score=correct_answers,
+            total_questions=len(question_set),
+        )
+
         await callback.message.answer(text=feedback)
         await callback.message.answer(
-            text=f"🏁 Тест завершён!\n\n"
-            f"✅ Правильных ответов: {score}\n\n",
+            text=f"🏁 Тест завершён!\n"
+            f"✅ Правильных ответов: {score}\n\n"
+            f"Что бы потоврить тест, нажмите кнопку ниже ⬇️",
+            reply_markup=keyboard, parse_mode="HTML"
         )
         await state.clear()
     
